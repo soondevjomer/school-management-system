@@ -68,7 +68,6 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(()->new NoRecordFoundException("student", "id", studentId.toString()));
 
-
         student.getPerson().setName(modelMapper.map(studentDto.getPerson().getName(), Name.class));
         student.getPerson().setAddress(modelMapper.map(studentDto.getPerson().getAddress(), Address.class));
         student.getPerson().setContact(modelMapper.map(studentDto.getPerson().getContact(), Contact.class));
@@ -80,8 +79,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String deleteStudent(Integer studentId) {
 
-        studentRepository.deleteById(studentId);
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(()->new NoRecordFoundException("student", "id", studentId.toString()));
 
-        return "Student deleted successfully";
+        studentRepository.delete(student);
+
+        return "Student deleted successfully.";
     }
 }
