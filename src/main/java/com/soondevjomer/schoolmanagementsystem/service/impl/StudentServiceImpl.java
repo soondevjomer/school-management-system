@@ -128,6 +128,7 @@ public class StudentServiceImpl implements StudentService {
                 });
     }
 
+    @Transactional
     @Override
     public StudentDto updateStudent(Integer studentId, StudentDto studentDto) {
 
@@ -171,6 +172,7 @@ public class StudentServiceImpl implements StudentService {
         return studentDtoResponse;
     }
 
+    @Transactional
     @Override
     public String deleteStudent(Integer studentId) {
 

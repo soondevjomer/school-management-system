@@ -16,4 +16,12 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(problemDetail, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(NoRecordFoundException.class)
+    public ResponseEntity<ProblemDetail> handleNoRecordFoundException(NoRecordFoundException exception) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+
+        return new ResponseEntity<>(problemDetail, HttpStatus.NOT_FOUND);
+    }
 }

@@ -10,6 +10,7 @@ import com.soondevjomer.schoolmanagementsystem.service.ClassService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class ClassServiceImpl implements ClassService {
         return modelMapper.map(updatedClass, ClassDto.class);
     }
 
+    @Transactional
     @Override
     public String deleteClass(Integer classId) {
 
@@ -72,6 +74,8 @@ public class ClassServiceImpl implements ClassService {
                 })
                 .toList();
         studentRepository.saveAll(studentsRemoveClass);
+
+        classRepository.delete(class_);
 
         return "Class deleted successfully.";
     }

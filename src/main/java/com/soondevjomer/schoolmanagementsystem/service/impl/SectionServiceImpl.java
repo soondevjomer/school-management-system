@@ -10,6 +10,7 @@ import com.soondevjomer.schoolmanagementsystem.service.SectionService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 
 import java.util.List;
@@ -60,6 +61,7 @@ public class SectionServiceImpl implements SectionService {
         return modelMapper.map(updatedSection, SectionDto.class);
     }
 
+    @Transactional
     @Override
     public String deleteSection(Integer sectionId) {
 
