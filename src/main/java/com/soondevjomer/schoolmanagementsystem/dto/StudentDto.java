@@ -1,5 +1,6 @@
 package com.soondevjomer.schoolmanagementsystem.dto;
 
+import com.soondevjomer.schoolmanagementsystem.entity.Person;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +10,10 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressDto {
+public class StudentDto {
+
 
     private Integer id;
-    private String line;
-    private String street;
-    private String city;
-    private String state;
-    private String zipcode;
+
+    private Person person;
 }
