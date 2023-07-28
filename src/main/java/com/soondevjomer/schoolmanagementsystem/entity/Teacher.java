@@ -12,27 +12,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "teachers")
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id", unique = true, nullable = false)
+    @Column(name = "teacher_id", unique = true, nullable = false)
     private Integer id;
 
-    // RELATIONSHIPS
-    @JsonIgnoreProperties("student")
+    @JsonIgnoreProperties("teacher")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
-
-    @JsonIgnoreProperties("students")
-    @ManyToOne
-    @JoinColumn(name = "class_id", referencedColumnName = "class_id")
-    private Class_ class_;
-
-    @JsonIgnoreProperties("students")
-    @ManyToOne
-    @JoinColumn(name = "section_id", referencedColumnName = "section_id")
-    private Section section;
 }

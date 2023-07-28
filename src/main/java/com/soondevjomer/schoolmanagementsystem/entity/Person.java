@@ -20,6 +20,8 @@ public class Person {
     @Column(name = "person_id", unique = true, nullable = false)
     private Integer id;
 
+
+    // RELATIONSHIPS
     @JsonIgnoreProperties("person")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "name_id", referencedColumnName = "name_id")
@@ -34,4 +36,10 @@ public class Person {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id",referencedColumnName = "contact_id")
     private Contact contact;
+
+    @OneToOne(mappedBy = "person")
+    private Student student;
+
+    @OneToOne(mappedBy = "person")
+    private Teacher teacher;
 }

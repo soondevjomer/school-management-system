@@ -102,9 +102,8 @@ public class StudentServiceImpl implements StudentService {
     public Page<StudentDto> getStudents(Integer page, Integer size, String sortField, String sortOrder) {
 
         Sort.Direction direction = Sort.Direction.ASC;
-        if (sortOrder.equalsIgnoreCase("desc")) {
+        if (sortOrder.equalsIgnoreCase("desc"))
             direction = Sort.Direction.DESC;
-        }
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
         return studentRepository.findAll(pageable)
