@@ -54,6 +54,7 @@ public class ClassServiceImpl implements ClassService {
                 .orElseThrow(()->new NoRecordFoundException("Class", "id", classId.toString()));
 
         class_.setName(classDto.getName());
+        class_.setDescription(classDto.getDescription());
         Class_ updatedClass = classRepository.save(class_);
 
         return modelMapper.map(updatedClass, ClassDto.class);

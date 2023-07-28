@@ -24,4 +24,12 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(problemDetail, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ProblemDetail> handleAlreadyExistsException(AlreadyExistsException exception) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+
+        return new ResponseEntity<>(problemDetail, HttpStatus.BAD_REQUEST);
+    }
 }
