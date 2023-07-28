@@ -42,4 +42,7 @@ public class Person {
 
     @OneToOne(mappedBy = "person")
     private Teacher teacher;
+
+    @OneToOne(mappedBy = "person")
+    private Admin admin;
 }
