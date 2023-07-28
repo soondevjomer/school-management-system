@@ -2,8 +2,10 @@ package com.soondevjomer.schoolmanagementsystem.service.impl;
 
 import com.soondevjomer.schoolmanagementsystem.dto.SectionDto;
 import com.soondevjomer.schoolmanagementsystem.entity.Section;
+import com.soondevjomer.schoolmanagementsystem.entity.Student;
 import com.soondevjomer.schoolmanagementsystem.exception.NoRecordFoundException;
 import com.soondevjomer.schoolmanagementsystem.repository.SectionRepository;
+import com.soondevjomer.schoolmanagementsystem.repository.StudentRepository;
 import com.soondevjomer.schoolmanagementsystem.service.SectionService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -11,12 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class SectionServiceImpl implements SectionService {
 
     private final SectionRepository sectionRepository;
+    private final StudentRepository studentRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -61,6 +65,15 @@ public class SectionServiceImpl implements SectionService {
 
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(()->new NoRecordFoundException("Section", "id", sectionId.toString()));
+
+        // Now before deleting section remove the associated students.
+        List<Student> studentsRemoveSection = studentRepository.findAll().stream()
+                        .filter(student -> student.getSection()!=null && student.getSection().getId().equals(sectionId))
+                        .peek(student -> {
+                            student.setSection(null);
+                        })
+                        .toList();
+        studentRepository.saveAll(studentsRemoveSection);
 
         sectionRepository.delete(section);
 
