@@ -16,4 +16,6 @@ public class NameDto {
     private String middleName;
     private String lastName;
     private String extensionName;
+
+    private PersonDto personDto;
 }

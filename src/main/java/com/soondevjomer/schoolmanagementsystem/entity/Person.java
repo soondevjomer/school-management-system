@@ -22,17 +22,14 @@ public class Person {
 
 
     // RELATIONSHIPS
-    @JsonIgnoreProperties("person")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "name_id", referencedColumnName = "name_id")
     private Name name;
 
-    @JsonIgnoreProperties("person")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 
-    @JsonIgnoreProperties("person")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id",referencedColumnName = "contact_id")
     private Contact contact;

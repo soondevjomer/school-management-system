@@ -28,5 +28,4 @@ public class Address {
     // RELATIONSHIPS
     @OneToOne(mappedBy = "address")
     private Person person;
-
 }

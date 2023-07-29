@@ -20,7 +20,6 @@ public class Teacher {
     @Column(name = "teacher_id", unique = true, nullable = false)
     private Integer id;
 
-    @JsonIgnoreProperties("teacher")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;

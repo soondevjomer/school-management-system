@@ -24,7 +24,7 @@ public class SectionData implements CommandLineRunner {
         }
 
         Section section1 = new Section();
-        section1.setName("Apricot");
+        section1.setName("UNDEFINED");
 
         Section section2 = new Section();
         section2.setName("Banana");

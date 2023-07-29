@@ -23,22 +23,27 @@ public class ClassData implements CommandLineRunner {
         }
 
         Class_ class_1 = new Class_();
-        class_1.setName("One");
+        class_1.setName("UNDEFINED");
 
         Class_ class_2 = new Class_();
-        class_2.setName("Two");
+        class_2.setName("1");
+        class_2.setDescription("One");
 
         Class_ class_3 = new Class_();
-        class_3.setName("Three");
+        class_3.setName("2");
+        class_3.setDescription("Two");
 
         Class_ class_4 = new Class_();
-        class_4.setName("Four");
+        class_4.setName("3");
+        class_4.setDescription("Three");
 
         Class_ class_5 = new Class_();
-        class_5.setName("Five");
+        class_5.setName("4");
+        class_5.setDescription("Four");
 
         Class_ class_6 = new Class_();
-        class_6.setName("Six");
+        class_6.setName("5");
+        class_6.setDescription("Five");
 
         List<Class_> classes = new ArrayList<>();
         classes.add(class_1);

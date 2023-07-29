@@ -15,4 +15,6 @@ public class ContactDto {
     private Integer id;
     private String mobileNumber;
     private String email;
+
+    private PersonDto personDto;
 }

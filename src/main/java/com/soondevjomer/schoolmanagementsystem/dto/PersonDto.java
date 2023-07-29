@@ -1,9 +1,7 @@
 package com.soondevjomer.schoolmanagementsystem.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.soondevjomer.schoolmanagementsystem.entity.Address;
-import com.soondevjomer.schoolmanagementsystem.entity.Contact;
-import com.soondevjomer.schoolmanagementsystem.entity.Name;
+import com.soondevjomer.schoolmanagementsystem.entity.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -19,7 +17,19 @@ import lombok.Setter;
 public class PersonDto {
 
     private Integer id;
+
+    @JsonIgnoreProperties("personDto")
     private NameDto nameDto;
+
+    @JsonIgnoreProperties("personDto")
     private AddressDto addressDto;
+
+    @JsonIgnoreProperties("personDto")
     private ContactDto contactDto;
+
+    private StudentDto studentDto;
+
+    private TeacherDto teacherDto;
+
+    private AdminDto adminDto;
 }

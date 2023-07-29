@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,8 +23,11 @@ public class Student {
     private Integer id;
 
     // RELATIONSHIPS
-    @JsonIgnoreProperties("student")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
+
+    @ManyToOne
+    @JoinColumn(name = "class_section_id", referencedColumnName = "class_section_id")
+    private ClassSection classSection;
 }

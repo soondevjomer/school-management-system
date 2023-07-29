@@ -1,10 +1,12 @@
 package com.soondevjomer.schoolmanagementsystem.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soondevjomer.schoolmanagementsystem.dto.ClassDto;
 import com.soondevjomer.schoolmanagementsystem.entity.Class_;
-import com.soondevjomer.schoolmanagementsystem.entity.Student;
 import com.soondevjomer.schoolmanagementsystem.exception.NoRecordFoundException;
 import com.soondevjomer.schoolmanagementsystem.repository.ClassRepository;
+import com.soondevjomer.schoolmanagementsystem.repository.ClassSectionRepository;
+import com.soondevjomer.schoolmanagementsystem.repository.SectionRepository;
 import com.soondevjomer.schoolmanagementsystem.repository.StudentRepository;
 import com.soondevjomer.schoolmanagementsystem.service.ClassService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,10 @@ import java.util.List;
 public class ClassServiceImpl implements ClassService {
 
     private final ClassRepository classRepository;
+    private final SectionRepository sectionRepository;
+    private final ClassSectionRepository classSectionRepository;
     private final StudentRepository studentRepository;
+    private final ObjectMapper objectMapper;
     private final ModelMapper modelMapper;
 
     @Override
@@ -64,10 +69,6 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public String deleteClass(Integer classId) {
 
-        Class_ class_ = classRepository.findById(classId)
-                .orElseThrow(()->new NoRecordFoundException("Class", "id", classId.toString()));
-
-        classRepository.delete(class_);
 
         return "Class deleted successfully.";
     }

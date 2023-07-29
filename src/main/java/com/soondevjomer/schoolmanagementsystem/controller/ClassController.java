@@ -1,6 +1,7 @@
 package com.soondevjomer.schoolmanagementsystem.controller;
 
 import com.soondevjomer.schoolmanagementsystem.dto.ClassDto;
+import com.soondevjomer.schoolmanagementsystem.entity.Class_;
 import com.soondevjomer.schoolmanagementsystem.service.ClassService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -23,8 +23,6 @@ public class Contact {
 
     private String mobileNumber;
 
-    @Email
-    @NotNull
     @Column(name = "email_address")
     private String email;
 

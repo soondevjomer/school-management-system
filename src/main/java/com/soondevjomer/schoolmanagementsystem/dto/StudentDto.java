@@ -1,8 +1,6 @@
 package com.soondevjomer.schoolmanagementsystem.dto;
 
-import com.soondevjomer.schoolmanagementsystem.entity.Class_;
-import com.soondevjomer.schoolmanagementsystem.entity.Person;
-import com.soondevjomer.schoolmanagementsystem.entity.Section;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +14,10 @@ public class StudentDto {
 
 
     private Integer id;
+
+    @JsonIgnoreProperties(value = {"studentDto", "teacherDto", "adminDto"})
     private PersonDto personDto;
+
+    @JsonIgnoreProperties("studentDtos")
+    private ClassSectionDto classSectionDto;
 }

@@ -1,6 +1,7 @@
 package com.soondevjomer.schoolmanagementsystem.service;
 
 import com.soondevjomer.schoolmanagementsystem.dto.ClassDto;
+import com.soondevjomer.schoolmanagementsystem.entity.Class_;
 
 import java.util.List;
 
