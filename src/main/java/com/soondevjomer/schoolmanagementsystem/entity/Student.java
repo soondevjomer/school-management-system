@@ -25,14 +25,4 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
-
-    @JsonIgnoreProperties("students")
-    @ManyToOne
-    @JoinColumn(name = "class_id", referencedColumnName = "class_id")
-    private Class_ class_;
-
-    @JsonIgnoreProperties("students")
-    @ManyToOne
-    @JoinColumn(name = "section_id", referencedColumnName = "section_id")
-    private Section section;
 }

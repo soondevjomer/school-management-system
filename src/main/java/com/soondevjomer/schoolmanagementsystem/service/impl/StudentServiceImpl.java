@@ -38,23 +38,8 @@ public class StudentServiceImpl implements StudentService {
         person.setAddress(modelMapper.map(studentDto.getPersonDto().getAddressDto(), Address.class));
         person.setContact(modelMapper.map(studentDto.getPersonDto().getContactDto(), Contact.class));
         Person savedPerson = personRepository.save(person);
-
         Student student = new Student();
         student.setPerson(savedPerson);
-
-        // Now before saving check if there is a class and section provided.
-        if (studentDto.getClassDto().getId()!=0) {
-            Class_ class_ = classRepository.findById(studentDto.getClassDto().getId())
-                    .orElseThrow(()->new NoRecordFoundException("Class", "id", studentDto.getClassDto().getId().toString()));
-            student.setClass_(class_);
-        }
-
-        if (studentDto.getSectionDto().getId()!=0) {
-            Section section = sectionRepository.findById(studentDto.getSectionDto().getId())
-                    .orElseThrow(()->new NoRecordFoundException("Section", "id", studentDto.getSectionDto().getId().toString()));
-            student.setSection(section);
-        }
-
         Student savedStudent = studentRepository.save(student);
 
         PersonDto personDto = new PersonDto();
@@ -65,11 +50,6 @@ public class StudentServiceImpl implements StudentService {
         StudentDto studentDtoResponse = new StudentDto();
         studentDtoResponse.setId(savedStudent.getId());
         studentDtoResponse.setPersonDto(personDto);
-
-        if (savedStudent.getClass_()!=null)
-            studentDtoResponse.setClassDto(modelMapper.map(savedStudent.getClass_(), ClassDto.class));
-        if (savedStudent.getSection()!=null)
-            studentDtoResponse.setSectionDto(modelMapper.map(savedStudent.getSection(), SectionDto.class));
 
         return studentDtoResponse;
     }
@@ -88,12 +68,6 @@ public class StudentServiceImpl implements StudentService {
         StudentDto studentDtoResponse = new StudentDto();
         studentDtoResponse.setId(student.getId());
         studentDtoResponse.setPersonDto(personDto);
-
-        if (student.getClass()!=null)
-            studentDtoResponse.setClassDto(modelMapper.map(student.getClass_(), ClassDto.class));
-
-        if (student.getSection()!=null)
-            studentDtoResponse.setSectionDto(modelMapper.map(student.getSection(), SectionDto.class));
 
         return studentDtoResponse;
     }
@@ -117,12 +91,6 @@ public class StudentServiceImpl implements StudentService {
                     studentDtoResponse.setId(student.getId());
                     studentDtoResponse.setPersonDto(personDto);
 
-                    if (student.getClass()!=null)
-                        studentDtoResponse.setClassDto(modelMapper.map(student.getClass_(), ClassDto.class));
-
-                    if (student.getSection()!=null)
-                        studentDtoResponse.setSectionDto(modelMapper.map(student.getSection(), SectionDto.class));
-
                     return studentDtoResponse;
                 });
     }
@@ -137,20 +105,6 @@ public class StudentServiceImpl implements StudentService {
         student.getPerson().setName(modelMapper.map(studentDto.getPersonDto().getNameDto(), Name.class));
         student.getPerson().setAddress(modelMapper.map(studentDto.getPersonDto().getAddressDto(), Address.class));
         student.getPerson().setContact(modelMapper.map(studentDto.getPersonDto().getContactDto(), Contact.class));
-
-        // Now before updating check if there is class and section provided.
-        if (studentDto.getClassDto().getId()!=0) {
-            Class_ class_ = classRepository.findById(studentDto.getClassDto().getId())
-                    .orElseThrow(()->new NoRecordFoundException("Class", "id", studentDto.getClassDto().getId().toString()));
-            student.setClass_(class_);
-        }
-
-        if (studentDto.getSectionDto().getId()!=0) {
-            Section section = sectionRepository.findById(studentDto.getSectionDto().getId())
-                    .orElseThrow(()->new NoRecordFoundException("Section", "id", studentDto.getSectionDto().getId().toString()));
-            student.setSection(section);
-        }
-
         Student updatedStudent = studentRepository.save(student);
 
         PersonDto personDto = new PersonDto();
@@ -158,15 +112,9 @@ public class StudentServiceImpl implements StudentService {
         personDto.setNameDto(modelMapper.map(updatedStudent.getPerson().getName(), NameDto.class));
         personDto.setAddressDto(modelMapper.map(updatedStudent.getPerson().getAddress(), AddressDto.class));
         personDto.setContactDto(modelMapper.map(updatedStudent.getPerson().getContact(), ContactDto.class));
-
         StudentDto studentDtoResponse = new StudentDto();
         studentDtoResponse.setId(updatedStudent.getId());
         studentDtoResponse.setPersonDto(personDto);
-
-        if (updatedStudent.getClass_()!=null)
-            studentDtoResponse.setClassDto(modelMapper.map(updatedStudent.getClass_(), ClassDto.class));
-        if (updatedStudent.getSection()!=null)
-            studentDtoResponse.setSectionDto(modelMapper.map(updatedStudent.getSection(), SectionDto.class));
 
         return studentDtoResponse;
     }
@@ -177,12 +125,6 @@ public class StudentServiceImpl implements StudentService {
 
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(()->new NoRecordFoundException("student", "id", studentId.toString()));
-
-        if (student.getClass_()!=null)
-            student.setClass_(null);
-
-        if (student.getSection()!=null)
-            student.setSection(null);
 
         studentRepository.delete(student);
 

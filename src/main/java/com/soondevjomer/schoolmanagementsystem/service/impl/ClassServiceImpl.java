@@ -67,15 +67,6 @@ public class ClassServiceImpl implements ClassService {
         Class_ class_ = classRepository.findById(classId)
                 .orElseThrow(()->new NoRecordFoundException("Class", "id", classId.toString()));
 
-        // Now before deleting class remove the associated students.
-        List<Student> studentsRemoveClass = studentRepository.findAll().stream()
-                .filter(student -> student.getClass_()!=null && student.getClass_().getId().equals(classId))
-                .peek(student -> {
-                    student.setClass_(null);
-                })
-                .toList();
-        studentRepository.saveAll(studentsRemoveClass);
-
         classRepository.delete(class_);
 
         return "Class deleted successfully.";

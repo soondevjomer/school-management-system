@@ -24,6 +24,5 @@ public class Section {
     private String name;
 
     // RELATIONSHIPS
-    @OneToMany(mappedBy = "section")
-    private List<Student> students;
+
 }

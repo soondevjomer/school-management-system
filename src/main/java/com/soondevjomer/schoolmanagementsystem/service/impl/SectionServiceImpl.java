@@ -68,15 +68,6 @@ public class SectionServiceImpl implements SectionService {
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(()->new NoRecordFoundException("Section", "id", sectionId.toString()));
 
-        // Now before deleting section remove the associated students.
-        List<Student> studentsRemoveSection = studentRepository.findAll().stream()
-                        .filter(student -> student.getSection()!=null && student.getSection().getId().equals(sectionId))
-                        .peek(student -> {
-                            student.setSection(null);
-                        })
-                        .toList();
-        studentRepository.saveAll(studentsRemoveSection);
-
         sectionRepository.delete(section);
 
         return "Section deleted successfully.";

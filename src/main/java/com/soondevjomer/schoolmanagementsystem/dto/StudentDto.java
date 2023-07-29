@@ -17,6 +17,4 @@ public class StudentDto {
 
     private Integer id;
     private PersonDto personDto;
-    private ClassDto classDto;
-    private SectionDto sectionDto;
 }

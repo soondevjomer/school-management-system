@@ -27,6 +27,5 @@ public class Class_ {
     private String description;
 
     // RELATIONSHIPS
-    @OneToMany(mappedBy = "class_")
-    private List<Student> students;
+
 }
