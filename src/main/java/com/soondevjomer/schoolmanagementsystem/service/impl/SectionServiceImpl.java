@@ -1,8 +1,11 @@
 package com.soondevjomer.schoolmanagementsystem.service.impl;
 
 import com.soondevjomer.schoolmanagementsystem.dto.SectionDto;
+import com.soondevjomer.schoolmanagementsystem.entity.ClassSection;
+import com.soondevjomer.schoolmanagementsystem.entity.Class_;
 import com.soondevjomer.schoolmanagementsystem.entity.Section;
 import com.soondevjomer.schoolmanagementsystem.exception.NoRecordFoundException;
+import com.soondevjomer.schoolmanagementsystem.repository.ClassSectionRepository;
 import com.soondevjomer.schoolmanagementsystem.repository.SectionRepository;
 import com.soondevjomer.schoolmanagementsystem.service.SectionService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,7 @@ import java.util.List;
 public class SectionServiceImpl implements SectionService {
 
     private final SectionRepository sectionRepository;
+    private final ClassSectionRepository classSectionRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -62,6 +66,19 @@ public class SectionServiceImpl implements SectionService {
 
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(()->new NoRecordFoundException("Section", "id", sectionId.toString()));
+
+        List<ClassSection> classSections = classSectionRepository.findAll().stream()
+                .filter(classSection -> classSection.getSection().getId().equals(sectionId))
+                .toList();
+
+        classSections
+                .forEach(classSection -> {
+                    classSection.setClass_(null);
+                    classSection.setSection(null);
+                    classSection.getStudents().forEach(student -> student.setClassSection(null));
+                });
+
+        classSectionRepository.deleteAll(classSectionRepository.saveAll(classSections));
 
         sectionRepository.delete(section);
 

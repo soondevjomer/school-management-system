@@ -75,26 +75,17 @@ public class ClassServiceImpl implements ClassService {
         List<ClassSection> classSections = classSectionRepository.findAll().stream()
                 .filter(classSection -> classSection.getClass_().getId().equals(classId))
                 .toList();
-        List<Integer> classSectionIds = classSections.stream()
-                        .map(ClassSection::getId)
-                        .toList();
+
         classSections
-                .forEach(classSection -> classSection.setClass_(null));
+                .forEach(classSection -> {
+                    classSection.setClass_(null);
+                    classSection.setSection(null);
+                    classSection.getStudents().forEach(student -> student.setClassSection(null));
+                });
 
-//        List<Section> sections = sectionRepository.findAll();
-//        sections.forEach(section -> {
-//            section.getClassSections().forEach(classSection -> {
-//                for (Integer counter : classSectionIds)
-//                    if (classSection.getId().equals(counter))
-//                        section.getClassSections()
-//            });
-//        });
+        classSectionRepository.deleteAll(classSectionRepository.saveAll(classSections));
 
-        System.out.println("Hello before deleting class");
         classRepository.delete(class_);
-
-        classSectionRepository.saveAll(classSections);
-
 
         return "Class deleted successfully.";
     }
