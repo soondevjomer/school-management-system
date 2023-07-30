@@ -102,6 +102,20 @@ public class StudentServiceImpl implements StudentService {
         person.getContact().setEmail(studentDto.getPersonDto().getContactDto().getEmail());
         student.setPerson(person);
 
+        if (student.getClassSection()==null) {
+            ClassSection classSection = classSectionRepository.findAll().stream()
+                    .filter(cs ->
+                            cs.getClass_().getId().equals(studentDto.getClassSectionDto().getClassDto().getId()) &&
+                                    cs.getSection().getId().equals(studentDto.getClassSectionDto().getSectionDto().getId()))
+                    .findFirst()
+                    .orElseGet(()->createClassSection(studentDto.getClassSectionDto().getClassDto().getId(), studentDto.getClassSectionDto().getSectionDto().getId()));
+
+            student.setClassSection(classSection);
+            Student updatedStudent = studentRepository.save(student);
+
+            return createStudentDtoResponse(updatedStudent);
+        }
+
         if (
                 !studentDto.getClassSectionDto().getClassDto().getId()
                         .equals(student.getClassSection().getClass_().getId()) ||
