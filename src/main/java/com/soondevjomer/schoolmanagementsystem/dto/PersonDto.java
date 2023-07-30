@@ -1,5 +1,6 @@
 package com.soondevjomer.schoolmanagementsystem.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.soondevjomer.schoolmanagementsystem.entity.*;
 import jakarta.persistence.CascadeType;
@@ -27,9 +28,12 @@ public class PersonDto {
     @JsonIgnoreProperties("personDto")
     private ContactDto contactDto;
 
+    @JsonIgnore
     private StudentDto studentDto;
 
+    @JsonIgnore
     private TeacherDto teacherDto;
 
+    @JsonIgnore
     private AdminDto adminDto;
 }

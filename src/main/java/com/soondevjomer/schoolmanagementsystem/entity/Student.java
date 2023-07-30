@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "students")
-public class Student {
+public class  Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class Student {
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "class_section_id", referencedColumnName = "class_section_id")
     private ClassSection classSection;
 }

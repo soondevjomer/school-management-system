@@ -26,9 +26,11 @@ public class ClassSection {
     @ManyToOne
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
     private Class_ class_;
+
     @ManyToOne
     @JoinColumn(name = "section_id", referencedColumnName = "section_id")
     private Section section;
+
     @OneToMany(mappedBy = "classSection")
     private List<Student> students;
 }

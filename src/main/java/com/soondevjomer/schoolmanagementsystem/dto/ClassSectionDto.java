@@ -22,6 +22,5 @@ public class ClassSectionDto {
     private Integer id;
     private ClassDto classDto;
     private SectionDto sectionDto;
-
     private List<StudentDto> studentDtos;
 }
