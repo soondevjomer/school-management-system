@@ -1,0 +1,33 @@
+package com.soondevjomer.schoolmanagementsystem.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "assessments")
+public class Assessment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "assessment_id", unique = true, nullable = false)
+    private Integer id;
+
+    private String name;
+
+    // RELATIONSHIPS
+    @OneToOne
+    @JoinColumn(name = "assessment_type_id", referencedColumnName = "assessment_type_id")
+    private AssessmentType assessmentType;
+
+    @OneToMany(mappedBy = "assessment")
+    private List<AssessmentSet> assessmentSets;
+}
