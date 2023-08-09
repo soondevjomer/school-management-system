@@ -37,16 +37,7 @@ public class AdminServiceImpl implements AdminService {
         admin.setPerson(savedPerson);
         Admin savedAdmin = adminRepository.save(admin);
 
-        PersonDto personDto = new PersonDto();
-        personDto.setId(savedAdmin.getPerson().getId());
-        personDto.setNameDto(modelMapper.map(savedAdmin.getPerson().getName(), NameDto.class));
-        personDto.setAddressDto(modelMapper.map(savedAdmin.getPerson().getAddress(), AddressDto.class));
-        personDto.setContactDto(modelMapper.map(savedAdmin.getPerson().getContact(), ContactDto.class));
-        AdminDto adminDtoResponse = new AdminDto();
-        adminDtoResponse.setId(savedAdmin.getId());
-        adminDtoResponse.setPersonDto(personDto);
-
-        return adminDtoResponse;
+        return createAdminDtoResponse(savedAdmin);
     }
 
     @Override
@@ -55,16 +46,7 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = adminRepository.findById(adminId)
                 .orElseThrow(()->new NoRecordFoundException("Admin", "id", adminId.toString()));
 
-        PersonDto personDto = new PersonDto();
-        personDto.setId(admin.getPerson().getId());
-        personDto.setNameDto(modelMapper.map(admin.getPerson().getName(), NameDto.class));
-        personDto.setAddressDto(modelMapper.map(admin.getPerson().getAddress(), AddressDto.class));
-        personDto.setContactDto(modelMapper.map(admin.getPerson().getContact(), ContactDto.class));
-        AdminDto adminDtoResponse = new AdminDto();
-        adminDtoResponse.setId(admin.getId());
-        adminDtoResponse.setPersonDto(personDto);
-
-        return adminDtoResponse;
+        return createAdminDtoResponse(admin);
     }
 
     @Override
@@ -77,18 +59,7 @@ public class AdminServiceImpl implements AdminService {
         Pageable pageable = PageRequest.of(page, size, direction, sortField);
 
         return adminRepository.findAll(pageable)
-                .map(admin -> {
-                    PersonDto personDto = new PersonDto();
-                    personDto.setId(admin.getPerson().getId());
-                    personDto.setNameDto(modelMapper.map(admin.getPerson().getName(), NameDto.class));
-                    personDto.setAddressDto(modelMapper.map(admin.getPerson().getAddress(), AddressDto.class));
-                    personDto.setContactDto(modelMapper.map(admin.getPerson().getContact(), ContactDto.class));
-                    AdminDto adminDtoResponse = new AdminDto();
-                    adminDtoResponse.setId(admin.getId());
-                    adminDtoResponse.setPersonDto(personDto);
-
-                    return adminDtoResponse;
-                });
+                .map(this::createAdminDtoResponse);
     }
 
     @Override
@@ -102,16 +73,7 @@ public class AdminServiceImpl implements AdminService {
         admin.getPerson().setContact(modelMapper.map(adminDto.getPersonDto().getContactDto(), Contact.class));
         Admin updatedAdmin = adminRepository.save(admin);
 
-        PersonDto personDto = new PersonDto();
-        personDto.setId(updatedAdmin.getPerson().getId());
-        personDto.setNameDto(modelMapper.map(updatedAdmin.getPerson().getName(), NameDto.class));
-        personDto.setAddressDto(modelMapper.map(updatedAdmin.getPerson().getAddress(), AddressDto.class));
-        personDto.setContactDto(modelMapper.map(updatedAdmin.getPerson().getContact(), ContactDto.class));
-        AdminDto adminDtoResponse = new AdminDto();
-        adminDtoResponse.setId(updatedAdmin.getId());
-        adminDtoResponse.setPersonDto(personDto);
-
-        return adminDtoResponse;
+        return createAdminDtoResponse(updatedAdmin);
     }
 
     @Override
@@ -123,5 +85,19 @@ public class AdminServiceImpl implements AdminService {
         adminRepository.delete(admin);
 
         return "Admin deleted successfully";
+    }
+
+    private AdminDto createAdminDtoResponse(Admin admin) {
+
+        PersonDto personDto = new PersonDto();
+        personDto.setId(admin.getPerson().getId());
+        personDto.setNameDto(modelMapper.map(admin.getPerson().getName(), NameDto.class));
+        personDto.setAddressDto(modelMapper.map(admin.getPerson().getAddress(), AddressDto.class));
+        personDto.setContactDto(modelMapper.map(admin.getPerson().getContact(), ContactDto.class));
+        AdminDto adminDtoResponse = new AdminDto();
+        adminDtoResponse.setId(admin.getId());
+        adminDtoResponse.setPersonDto(personDto);
+
+        return adminDtoResponse;
     }
 }

@@ -4,12 +4,14 @@ import com.soondevjomer.schoolmanagementsystem.entity.Class_;
 import com.soondevjomer.schoolmanagementsystem.repository.ClassRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Order(1)
 @RequiredArgsConstructor
 public class ClassData implements CommandLineRunner {
 

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -16,4 +18,7 @@ public class TeacherDto {
 
     @JsonIgnoreProperties(value = {"studentDto", "teacherDto", "adminDto"})
     private PersonDto personDto;
+
+    @JsonIgnoreProperties("teacherDto")
+    private List<ScheduleDto> scheduleDtos;
 }

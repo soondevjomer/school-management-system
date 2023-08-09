@@ -31,12 +31,14 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<Page<StudentDto>> getStudents(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "5") int size,
             @RequestParam(defaultValue = "id") String sortField,
-            @RequestParam(defaultValue = "asc") String sortOrder
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(defaultValue = "") String search,
+            @RequestParam(defaultValue = "NAME") String searchOption
     ) {
 
-        return ResponseEntity.ok(studentService.getStudents(page, size, sortField, sortOrder));
+        return ResponseEntity.ok(studentService.getStudents(page, size, sortField, sortOrder, search, searchOption));
     }
 
     @PutMapping("/{studentId}")

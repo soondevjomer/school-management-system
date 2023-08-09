@@ -37,16 +37,7 @@ public class TeacherServiceImpl implements TeacherService {
         teacher.setPerson(savedPerson);
         Teacher savedTeacher = teacherRepository.save(teacher);
 
-        PersonDto personDto = new PersonDto();
-        personDto.setId(savedTeacher.getPerson().getId());
-        personDto.setNameDto(modelMapper.map(savedTeacher.getPerson().getName(), NameDto.class));
-        personDto.setAddressDto(modelMapper.map(savedTeacher.getPerson().getAddress(), AddressDto.class));
-        personDto.setContactDto(modelMapper.map(savedTeacher.getPerson().getContact(), ContactDto.class));
-        TeacherDto teacherDtoResponse = new TeacherDto();
-        teacherDtoResponse.setId(savedTeacher.getId());
-        teacherDtoResponse.setPersonDto(personDto);
-
-        return teacherDtoResponse;
+        return createTeacherDtoResponse(savedTeacher);
     }
 
     @Override
@@ -55,16 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teacherRepository.findById(teacherId)
                 .orElseThrow(()->new NoRecordFoundException("Teacher", "id", teacherId.toString()));
 
-        PersonDto personDto = new PersonDto();
-        personDto.setId(teacher.getPerson().getId());
-        personDto.setNameDto(modelMapper.map(teacher.getPerson().getName(), NameDto.class));
-        personDto.setAddressDto(modelMapper.map(teacher.getPerson().getAddress(), AddressDto.class));
-        personDto.setContactDto(modelMapper.map(teacher.getPerson().getContact(), ContactDto.class));
-        TeacherDto teacherDtoResponse = new TeacherDto();
-        teacherDtoResponse.setId(teacher.getId());
-        teacherDtoResponse.setPersonDto(personDto);
-
-        return teacherDtoResponse;
+        return createTeacherDtoResponse(teacher);
     }
 
     @Override
@@ -77,18 +59,7 @@ public class TeacherServiceImpl implements TeacherService {
         Pageable pageable = PageRequest.of(page, size, direction, sortField);
 
         return teacherRepository.findAll(pageable)
-                .map(teacher -> {
-                    PersonDto personDto = new PersonDto();
-                    personDto.setId(teacher.getPerson().getId());
-                    personDto.setNameDto(modelMapper.map(teacher.getPerson().getName(), NameDto.class));
-                    personDto.setAddressDto(modelMapper.map(teacher.getPerson().getAddress(), AddressDto.class));
-                    personDto.setContactDto(modelMapper.map(teacher.getPerson().getContact(), ContactDto.class));
-                    TeacherDto teacherDtoResponse = new TeacherDto();
-                    teacherDtoResponse.setId(teacher.getId());
-                    teacherDtoResponse.setPersonDto(personDto);
-
-                    return teacherDtoResponse;
-                });
+                .map(this::createTeacherDtoResponse);
     }
 
     @Transactional
@@ -103,16 +74,7 @@ public class TeacherServiceImpl implements TeacherService {
         teacher.getPerson().setContact(modelMapper.map(teacherDto.getPersonDto().getContactDto(), Contact.class));
         Teacher updatedTeacher = teacherRepository.save(teacher);
 
-        PersonDto personDto = new PersonDto();
-        personDto.setId(updatedTeacher.getPerson().getId());
-        personDto.setNameDto(modelMapper.map(updatedTeacher.getPerson().getName(), NameDto.class));
-        personDto.setAddressDto(modelMapper.map(updatedTeacher.getPerson().getAddress(), AddressDto.class));
-        personDto.setContactDto(modelMapper.map(updatedTeacher.getPerson().getContact(), ContactDto.class));
-        TeacherDto teacherDtoResponse = new TeacherDto();
-        teacherDtoResponse.setId(updatedTeacher.getId());
-        teacherDtoResponse.setPersonDto(personDto);
-
-        return teacherDtoResponse;
+        return createTeacherDtoResponse(updatedTeacher);
     }
 
     @Override
@@ -124,5 +86,19 @@ public class TeacherServiceImpl implements TeacherService {
         teacherRepository.delete(teacher);
 
         return "Teacher deleted successfully.";
+    }
+
+    private TeacherDto createTeacherDtoResponse(Teacher teacher) {
+
+        PersonDto personDto = new PersonDto();
+        personDto.setId(teacher.getPerson().getId());
+        personDto.setNameDto(modelMapper.map(teacher.getPerson().getName(), NameDto.class));
+        personDto.setAddressDto(modelMapper.map(teacher.getPerson().getAddress(), AddressDto.class));
+        personDto.setContactDto(modelMapper.map(teacher.getPerson().getContact(), ContactDto.class));
+        TeacherDto teacherDtoResponse = new TeacherDto();
+        teacherDtoResponse.setId(teacher.getId());
+        teacherDtoResponse.setPersonDto(personDto);
+
+        return teacherDtoResponse;
     }
 }

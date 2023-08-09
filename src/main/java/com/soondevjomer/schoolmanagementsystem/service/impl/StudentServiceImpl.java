@@ -54,7 +54,6 @@ public class StudentServiceImpl implements StudentService {
         return createStudentDtoResponse(savedStudent);
     }
 
-
     @Override
     public StudentDto getStudent(Integer studentId) {
 
@@ -65,13 +64,23 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<StudentDto> getStudents(Integer page, Integer size, String sortField, String sortOrder) {
+    public Page<StudentDto> getStudents(Integer page, Integer size, String sortField, String sortOrder, String search, String searchOption) {
 
         Sort.Direction direction = Sort.Direction.ASC;
         if (sortOrder.equalsIgnoreCase("desc"))
             direction = Sort.Direction.DESC;
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
+
+        if (search!=null && !search.isEmpty()) {
+            if (searchOption.equalsIgnoreCase("NAME"))
+                return studentRepository.findByNameContainingIgnoreCase(search, pageable)
+                        .map(this::createStudentDtoResponse);
+            if (searchOption.equalsIgnoreCase("CLASS_SECTION"))
+                return studentRepository.findByClassSectionContainingIgnoreCase(search, pageable)
+                        .map(this::createStudentDtoResponse);
+        }
+
         return studentRepository.findAll(pageable)
                 .map(this::createStudentDtoResponse);
     }

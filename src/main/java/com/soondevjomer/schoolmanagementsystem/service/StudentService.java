@@ -12,7 +12,8 @@ public interface StudentService {
 
     StudentDto getStudent(Integer studentId);
 
-    Page<StudentDto> getStudents(Integer page, Integer size, String sortField, String sortOrder);
+    Page<StudentDto> getStudents(
+            Integer page, Integer size, String sortField, String sortOrder, String searchName, String searchOption);
 
     StudentDto updateStudent(Integer studentId, StudentDto studentDto);
     String deleteStudent(Integer studentId);

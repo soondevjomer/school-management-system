@@ -2,7 +2,6 @@ package com.soondevjomer.schoolmanagementsystem.service.impl;
 
 import com.soondevjomer.schoolmanagementsystem.dto.SectionDto;
 import com.soondevjomer.schoolmanagementsystem.entity.ClassSection;
-import com.soondevjomer.schoolmanagementsystem.entity.Class_;
 import com.soondevjomer.schoolmanagementsystem.entity.Section;
 import com.soondevjomer.schoolmanagementsystem.exception.NoRecordFoundException;
 import com.soondevjomer.schoolmanagementsystem.repository.ClassSectionRepository;
@@ -71,8 +70,7 @@ public class SectionServiceImpl implements SectionService {
                 .filter(classSection -> classSection.getSection().getId().equals(sectionId))
                 .toList();
 
-        classSections
-                .forEach(classSection -> {
+        classSections.forEach(classSection -> {
                     classSection.setClass_(null);
                     classSection.setSection(null);
                     classSection.getStudents().forEach(student -> student.setClassSection(null));

@@ -3,13 +3,9 @@ package com.soondevjomer.schoolmanagementsystem.service.impl;
 import com.soondevjomer.schoolmanagementsystem.dto.ClassDto;
 import com.soondevjomer.schoolmanagementsystem.entity.ClassSection;
 import com.soondevjomer.schoolmanagementsystem.entity.Class_;
-import com.soondevjomer.schoolmanagementsystem.entity.Section;
-import com.soondevjomer.schoolmanagementsystem.entity.Student;
 import com.soondevjomer.schoolmanagementsystem.exception.NoRecordFoundException;
 import com.soondevjomer.schoolmanagementsystem.repository.ClassRepository;
 import com.soondevjomer.schoolmanagementsystem.repository.ClassSectionRepository;
-import com.soondevjomer.schoolmanagementsystem.repository.SectionRepository;
-import com.soondevjomer.schoolmanagementsystem.repository.StudentRepository;
 import com.soondevjomer.schoolmanagementsystem.service.ClassService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,7 +19,6 @@ import java.util.List;
 public class ClassServiceImpl implements ClassService {
 
     private final ClassRepository classRepository;
-    private final SectionRepository sectionRepository;
     private final ClassSectionRepository classSectionRepository;
     private final ModelMapper modelMapper;
 
@@ -76,8 +71,7 @@ public class ClassServiceImpl implements ClassService {
                 .filter(classSection -> classSection.getClass_().getId().equals(classId))
                 .toList();
 
-        classSections
-                .forEach(classSection -> {
+        classSections.forEach(classSection -> {
                     classSection.setClass_(null);
                     classSection.setSection(null);
                     classSection.getStudents().forEach(student -> student.setClassSection(null));
