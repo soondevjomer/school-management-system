@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,18 +23,13 @@ public class Question {
 
     private String question;
 
-    // RELATIONSHIPS
-    @ManyToOne
-    @JoinColumn(name = "question_type_id", referencedColumnName = "question_type_id")
-    private QuestionType questionType;
+    private Integer point;
 
+    // RELATIONSHIPS
     @ManyToOne
     @JoinColumn(name = "assessment_set_id", referencedColumnName = "assessment_set_id")
     private AssessmentSet assessmentSet;
 
-    private Integer point;
-
-    @OneToOne
-    @JoinColumn(name = "answer_id", referencedColumnName = "answer_id")
-    private Answer answer;
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private List<Answer> answers;
 }

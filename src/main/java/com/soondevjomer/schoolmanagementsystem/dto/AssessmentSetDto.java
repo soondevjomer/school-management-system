@@ -19,5 +19,7 @@ public class AssessmentSetDto {
 
     private String instruction;
 
+    private AssessmentFormatDto assessmentFormatDto;
+
     private List<QuestionDto> questionDtos;
 }

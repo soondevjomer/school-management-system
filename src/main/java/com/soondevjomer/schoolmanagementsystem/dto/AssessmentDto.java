@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -16,6 +17,8 @@ public class AssessmentDto {
     private Integer id;
 
     private String name;
+
+    private Date dateCreated;
 
     private AssessmentTypeDto assessmentTypeDto;
 

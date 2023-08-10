@@ -12,6 +12,6 @@ import lombok.Setter;
 public class AssessmentTypeDto {
 
     private Integer id;
-
     private String name;
+    private String description;
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,9 +17,7 @@ public class QuestionDto {
 
     private String question;
 
-    private QuestionTypeDto questionTypeDto;
-
     private Integer point;
 
-    private AnswerDto answerDto;
+    private List<AnswerDto> answerDtos;
 }

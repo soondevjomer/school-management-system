@@ -21,7 +21,10 @@ public class Answer {
 
     private String answer;
 
+    private boolean isCorrect;
+
     // RELATIONSHIP
-    @OneToOne(mappedBy = "answer")
+    @ManyToOne
+    @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private Question question;
 }

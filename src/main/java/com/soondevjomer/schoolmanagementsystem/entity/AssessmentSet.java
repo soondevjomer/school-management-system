@@ -25,8 +25,12 @@ public class AssessmentSet {
     private String instruction;
 
     // RELATIONSHIPS
-    @OneToMany(mappedBy = "assessmentSet")
+    @OneToMany(mappedBy = "assessmentSet", cascade = CascadeType.ALL)
     private List<Question> questions;
+
+    @ManyToOne
+    @JoinColumn(name = "assessment_format_id", referencedColumnName = "assessment_format_id")
+    private AssessmentFormat assessmentFormat;
 
     @ManyToOne
     @JoinColumn(name = "assessment_id", referencedColumnName = "assessment_id")

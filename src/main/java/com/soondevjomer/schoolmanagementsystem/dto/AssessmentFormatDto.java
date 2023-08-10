@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionTypeDto {
+public class AssessmentFormatDto {
 
     private Integer id;
 

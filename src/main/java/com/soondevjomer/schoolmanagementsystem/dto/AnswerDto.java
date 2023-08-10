@@ -14,4 +14,6 @@ public class AnswerDto {
     private Integer id;
 
     private String answer;
+
+    private boolean isCorrect;
 }

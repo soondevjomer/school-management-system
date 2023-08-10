@@ -13,12 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "question_types")
-public class QuestionType {
+@Table(name = "assessment_formats")
+public class AssessmentFormat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_type_id", unique = true, nullable = false)
+    @Column(name = "assessment_format_id", unique = true, nullable = false)
     private Integer id;
 
     private String code;
@@ -28,6 +28,6 @@ public class QuestionType {
     private String description;
 
     // RELATIONSHIPS
-    @OneToMany(mappedBy = "questionType")
-    private List<Question> questions;
+    @OneToMany(mappedBy = "assessmentFormat")
+    private List<AssessmentSet> assessmentSets;
 }

@@ -26,6 +26,6 @@ public class AssessmentType {
     private String description;
 
     // RELATIONSHIPS
-    @OneToOne(mappedBy = "assessmentType")
-    private Assessment assessment;
+    @OneToMany(mappedBy = "assessmentType")
+    private List<Assessment> assessments;
 }
